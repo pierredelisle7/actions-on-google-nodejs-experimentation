@@ -82,6 +82,10 @@ export const attach = <TService>(
     return app.handler(args[0], args[1])
   }
   app = Object.assign(omni, app)
+
+  // Redefine debug, warn, error, info in common.ts according to what I get from app.
+  common.setLogs(app.log)
+
   const handler: typeof app.handler = app.handler.bind(app)
   const standard: StandardHandler = async (body, headers, metadata) => {
     // const log = app.debug ? common.info : common.debug

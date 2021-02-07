@@ -27,7 +27,8 @@ export const warn = Debug(`${name}:warn`)
 
 /** @hidden */
 // tslint:disable-next-line:no-console Allow console binding
-export const error = console.error.bind(console) as typeof console.error
+let error = console.error.bind(console) as typeof console.error
+export { error }
 
 /** @hidden */
 // tslint:disable-next-line:no-console Allow console binding
@@ -51,6 +52,11 @@ export const values = <T>(o: { [key: string]: T }) => Object.keys(o).map(k => o[
 
 /** @hidden */
 export const clone = <T>(o: T): T => JSON.parse(JSON.stringify(o))
+
+export const setLogs = (logger: any) => {
+  console.log("setting error to logger!!!!")
+  error = logger
+}
 
 /** @hidden */
 // tslint:disable-next-line:no-any root can be anything
