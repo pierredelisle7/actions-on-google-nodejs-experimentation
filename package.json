@@ -28,12 +28,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions-on-google/actions-on-google-nodejs.git"
+    "url": "git+https://github.com/pierredelisle7/actions-on-google-nodejs-experimentation.git"
   },
   "bugs": {
-    "url": "https://github.com/actions-on-google/actions-on-google-nodejs/issues"
+    "url": "https://github.com/pierredelisle7/actions-on-google-nodejs-experimentation/issues"
   },
-  "homepage": "https://github.com/actions-on-google/actions-on-google-nodejs#readme",
+  "homepage": "https://github.com/pierredelisle7/actions-on-google-nodejs-experimentation#readme",
   "keywords": [
     "google",
     "google actions",
@@ -61,7 +61,8 @@
     "@types/node": "^9.4.6",
     "debug": "^3.1.0",
     "google-auth-library": "^1.6.1",
-    "googleapis": "^39.2.0"
+    "googleapis": "^39.2.0",
+    "yarn": "^1.22.10"
   },
   "resolutions": {
     "typedoc-default-themes": "0.6.0"
