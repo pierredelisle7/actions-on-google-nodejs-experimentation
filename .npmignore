@@ -1,6 +1,5 @@
 _test
 tslint.json
-tsconfig.json
 .travis.yml
 CONTRIBUTING.md
 *.log
