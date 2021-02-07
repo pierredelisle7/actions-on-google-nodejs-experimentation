@@ -25,7 +25,7 @@
     "docs:serve": "yarn docs:clean && hs docs -o",
     "coverage": "yarn coverage:serve",
     "coverage:serve": "yarn test && hs coverage -o",
-    "postinstall": "tsc"
+    "postinstall": "tsc --build tsconfig.json"
   },
   "repository": {
     "type": "git",
