@@ -23,7 +23,8 @@ export type AppHandler = OmniHandler & BaseApp
 /** @public */
 export interface AppOptions {
   /** @public */
-  debug?: boolean
+  debug?: boolean,
+  log?: Function
 }
 
 /** @hidden */
@@ -50,6 +51,7 @@ export interface BaseApp extends ServiceBaseApp {
 
   /** @public */
   debug: boolean
+  log: Function
 }
 
 /** @hidden */
@@ -60,6 +62,8 @@ const create = (options?: AppOptions): BaseApp => ({
     return plugin(this) || this
   },
   debug: !!(options && options.debug),
+  // tslint:disable-next-line:undefined just getting by for now
+  log: (typeof (options) === 'undefined' || typeof (options.log) === 'undefined') ? console.log : options.log
 })
 
 /** @hidden */
@@ -80,7 +84,8 @@ export const attach = <TService>(
   app = Object.assign(omni, app)
   const handler: typeof app.handler = app.handler.bind(app)
   const standard: StandardHandler = async (body, headers, metadata) => {
-    const log = app.debug ? common.info : common.debug
+    // const log = app.debug ? common.info : common.debug
+    const log = app.log
     log('Request', common.stringify(body))
     log('Headers', common.stringify(headers))
     const response = await handler(body, headers, metadata)
