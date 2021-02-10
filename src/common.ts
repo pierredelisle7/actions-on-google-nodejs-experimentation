@@ -16,14 +16,17 @@
 
 import * as Debug from 'debug'
 import * as https from 'https'
+import { AppLogs } from './assistant'
 
 const name = 'actions-on-google'
 
 /** @hidden */
-export const debug = Debug(`${name}:debug`)
+let debug = Debug(`${name}:debug`)
+export { debug }
 
 /** @hidden */
-export const warn = Debug(`${name}:warn`)
+let warn = Debug(`${name}:warn`)
+export { warn }
 
 /** @hidden */
 // tslint:disable-next-line:no-console Allow console binding
@@ -32,7 +35,8 @@ export { error }
 
 /** @hidden */
 // tslint:disable-next-line:no-console Allow console binding
-export const info = console.log.bind(console) as typeof console.log
+let info = console.log.bind(console) as typeof console.log
+export { info }
 
 warn.log = error
 debug.log = info
@@ -53,9 +57,12 @@ export const values = <T>(o: { [key: string]: T }) => Object.keys(o).map(k => o[
 /** @hidden */
 export const clone = <T>(o: T): T => JSON.parse(JSON.stringify(o))
 
-export const setLogs = (logger: any) => {
-  console.log("setting error to logger!!!!")
-  error = logger
+export const setLogs = (logs: AppLogs) => {
+  console.log("setting logs!!!!")
+  debug.log = logs.debug
+  info = logs.info
+  warn.log = logs.warn
+  error = logs.error
 }
 
 /** @hidden */

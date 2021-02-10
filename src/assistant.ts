@@ -21,10 +21,23 @@ import * as common from './common'
 export type AppHandler = OmniHandler & BaseApp
 
 /** @public */
+export interface LogFn {
+  (params: any[]): void;
+}
+
+/** @public */
+export interface AppLogs {
+  debug: LogFn,
+  info: LogFn,
+  warn: LogFn,
+  error: LogFn
+}
+
+/** @public */
 export interface AppOptions {
   /** @public */
   debug?: boolean,
-  log?: Function
+  logs?: AppLogs
 }
 
 /** @hidden */
@@ -51,7 +64,7 @@ export interface BaseApp extends ServiceBaseApp {
 
   /** @public */
   debug: boolean
-  log: Function
+  logs?: AppLogs
 }
 
 /** @hidden */
@@ -63,7 +76,7 @@ const create = (options?: AppOptions): BaseApp => ({
   },
   debug: !!(options && options.debug),
   // tslint:disable-next-line:undefined just getting by for now
-  log: (typeof (options) === 'undefined' || typeof (options.log) === 'undefined') ? console.log : options.log
+  logs: (typeof (options) === 'undefined' || typeof (options.logs) === 'undefined') ? undefined : options.logs
 })
 
 /** @hidden */
@@ -83,13 +96,14 @@ export const attach = <TService>(
   }
   app = Object.assign(omni, app)
 
-  // Redefine debug, warn, error, info in common.ts according to what I get from app.
-  common.setLogs(app.log)
+  if (app.logs) {
+    // Redefine debug, warn, error, info in common.ts according to what I get from app.
+    common.setLogs(app.logs)
+  }
 
   const handler: typeof app.handler = app.handler.bind(app)
   const standard: StandardHandler = async (body, headers, metadata) => {
-    // const log = app.debug ? common.info : common.debug
-    const log = app.log
+    const log = app.debug ? common.info : common.debug
     log('Request', common.stringify(body))
     log('Headers', common.stringify(headers))
     const response = await handler(body, headers, metadata)
