@@ -51,7 +51,7 @@
     "tslint": "^5.9.1",
     "tslint-eslint-rules": "^5.1.0",
     "typedoc": "^0.15.0",
-    "typedoc-neo-theme": "^1.0.9",
+    "typedoc-neo-theme": "^1.0.9"
   },
   "dependencies": {
     "@types/aws-lambda": "^0.0.33",
