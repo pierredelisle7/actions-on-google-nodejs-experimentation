@@ -62,10 +62,6 @@ export const setLogs = (logs: AppLogs) => {
   info = logs.info
   warn.log = logs.warn
   error = logs.error
-  debug.log("common.setLogs: debug")
-  info("common.setLogs: info")
-  warn.log("common.setLogs: warn")
-  error("common.setLogs: error")
 }
 
 /** @hidden */
