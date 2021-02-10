@@ -98,7 +98,10 @@ export const attach = <TService>(
 
   if (app.logs) {
     // Redefine debug, warn, error, info in common.ts according to what I get from app.
+    console.log("****** REDEFINING THE LOGS ********")
     common.setLogs(app.logs)
+  } else {
+    console.log("****** NOT REDEFINING THE LOGS ********")
   }
 
   const handler: typeof app.handler = app.handler.bind(app)
