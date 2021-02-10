@@ -97,22 +97,15 @@ export const attach = <TService>(
   app = Object.assign(omni, app)
 
   if (app.logs) {
-    // Redefine debug, warn, error, info in common.ts according to what I get from app.
-    console.log("****** console.log REDEFINING THE LOGS ********")
-    common.info("****** common.info REDEFINING THE LOGS ********")
+    // Redefine debug, warn, error, info according to app definitions of logs.
     common.setLogs(app.logs)
-  } else {
-    console.log("****** console.log NOT REDEFINING THE LOGS ********")
-    common.info("****** common.info NOT REDEFINING THE LOGS ********")
   }
 
   const handler: typeof app.handler = app.handler.bind(app)
   const standard: StandardHandler = async (body, headers, metadata) => {
-    common.error("**** common.error ENTERING HANDLER in assistant.ts")
     const log = app.debug ? common.info : common.debug
-    common.error(`**** common.error in assistant.ts log is {log.name}`)
-    log('Request V2', common.stringify(body))
-    log('Headers V2', common.stringify(headers))
+    log('Request', common.stringify(body))
+    log('Headers', common.stringify(headers))
     const response = await handler(body, headers, metadata)
     if (!response.headers) {
       response.headers = {}

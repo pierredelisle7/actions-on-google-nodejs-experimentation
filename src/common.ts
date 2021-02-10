@@ -58,15 +58,14 @@ export const values = <T>(o: { [key: string]: T }) => Object.keys(o).map(k => o[
 export const clone = <T>(o: T): T => JSON.parse(JSON.stringify(o))
 
 export const setLogs = (logs: AppLogs) => {
-  console.log("********** setting logs!!!! *************")
   debug.log = logs.debug
   info = logs.info
   warn.log = logs.warn
   error = logs.error
-  debug.log("********** logging with debug")
-  info("********** logging with info")
-  warn.log("********** logging with warn")
-  error("********** logging with error")
+  debug.log("common.setLogs: debug")
+  info("common.setLogs: info")
+  warn.log("common.setLogs: warn")
+  error("common.setLogs: error")
 }
 
 /** @hidden */
